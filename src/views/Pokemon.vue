@@ -35,7 +35,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="container pb-4 mx-auto grid grid-cols-1 md:grid-cols-2 bg-gray-200 "
+    <div class="p-5 mx-auto grid grid-cols-1 md:grid-cols-2 bg-gray-200 "
         v-if="pokemon && pokemon.species_details">
         <div class="p-5 flex-1 flex items-center">
             <img :src="pokemon.image" :alt="pokemon.name" loading="eager" class="w-full h-auto object-cover ">
