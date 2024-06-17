@@ -3,7 +3,7 @@
         <nav class="text-gray-200 w-full grid grid-cols-4 grid-rows-2 ">
             <div class=" bg-red-700 row-span-2 flex items-center">
                 <RouterLink to="/">
-                    <HugeiconsPokeball class="h-24 w-24 ml-2" />
+                    <HugeiconsPokeball class="h-24 w-24 ml-2 transition ease-in-out delay-150 hover:scale-110 hover:text-sky-500 "  />
                 </RouterLink>
             </div>
             <div class="py-14 bg-red-700 row-span-2 [clip-path:polygon(0_0,100%_0,100%_50%,0_100%)]">
