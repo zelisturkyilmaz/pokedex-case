@@ -10,10 +10,10 @@
             <div class="py-14 bg-red-700 row-span-2 [clip-path:polygon(0_0,100%_0,100%_50%,0_100%)]">
             </div>
             <div class="col-span-2 bg-red-700 -ml-1 flex items-center justify-end">
-                <!-- TODO: Add github link -->
-                <RouterLink to="/">
-                    <MdiGithub class="h-10 w-10 mr-2" />
-                </RouterLink>
+                <a href="https://github.com/zelisturkyilmaz/pokedex-case" target="_blank">
+                    <MdiGithub
+                        class="h-10 w-10 mr-2 transition ease-in-out delay-150 hover:scale-110 hover:text-cyan-900 hover:brightness-200" />
+                </a>
             </div>
         </nav>
     </header>
