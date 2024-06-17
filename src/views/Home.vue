@@ -31,7 +31,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="container px-5 py-5 mx-auto flex-1 flex flex-col overflow-hidden">
+  <main class="container px-5 pb-5 mx-auto flex-1 flex flex-col overflow-hidden">
     <div class="flex flex-col items-center justify-center mb-4 space-y-2">
       <h1 class="text-4xl font-bold text-yellow-400 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">Pokémon Index</h1>
       <div class='w-full md:w-1/2'>
