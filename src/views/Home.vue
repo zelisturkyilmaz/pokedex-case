@@ -33,14 +33,14 @@ watch(pokemonStore.searchQuery, () => {
       <div class='w-full md:w-1/2'>
         <div class="flex items-center h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
           <MaterialSymbolsSearch class="h-8 w-8 text-gray-500 mx-2" />
-          <input v-model.lazy="pokemonStore.searchQuery" @input="pokemonStore.filterPokemons"
+          <input v-model="pokemonStore.searchQuery" @input="pokemonStore.filterPokemons"
             class="h-full w-full outline-none text-sm text-gray-700 pr-2" type="text"
             placeholder="Search for a Pokémon by name.." />
         </div>
       </div>
     </div>
     <div class="shadow-xl shadow-teal-700 rounded-md bg-teal-800 overflow-y-auto flex-1 ">
-      <div class="sticky -top-1 z-40 bg-teal-800 p-4 flex justify-around">
+      <div class="sticky -top-1 z-40 bg-teal-800 p-4 flex">
         <button @click="pokemonStore.prevPage" v-if="pokemonStore.currentPage !== 1"
           class="text-white disabled:opacity-50 flex items-center gap-1 transition ease-in-out delay-150 hover:scale-105">
           <CarbonPreviousOutline class="inline-block" />
