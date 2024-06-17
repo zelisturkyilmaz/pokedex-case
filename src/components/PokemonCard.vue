@@ -1,6 +1,29 @@
+<script setup>
+const props = defineProps({
+    pokemon: {
+        type: Object,
+        required: true,
+    },
+})
+
+const emit = defineEmits(['view-pokemon'])
+
+const handleViewPokemon = () => {
+    emit('view-pokemon', props.pokemon.url)
+}
+
+</script>
+
 <template>
-    <div>
-        <img :src="pokemon.image" alt="{{ pokemon.name }}" class="w-full h-48 object-cover rounded-t-lg">
-        <p class="text-lg font-bold mt-4">{{ pokemon.name }}</p>
+    <div class="rounded-2xl shadow-md bg-white flex flex-col justify-end items-center cursor-pointer transition ease-in-out delay-150 hover:scale-105 relative h-36"
+        @click="handleViewPokemon">
+        <img :src="pokemon.image || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'"
+            :alt="pokemon.name" class="object-cover absolute h-28 w-28 -top-6" />
+        <p class="text-sm font-bold mt-4 capitalize">{{ pokemon.name }}</p>
+        <div class="flex justify-center mb-2 gap-1">
+            <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
+                <div class="border px-2 py-1 rounded-lg">{{ type.type.name }}</div>
+            </div>
+        </div>
     </div>
 </template>
