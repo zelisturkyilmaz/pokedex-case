@@ -3,6 +3,27 @@ import { ref } from 'vue'
 import axios from 'axios'
 
 export const usePokemonStore = defineStore('pokemon', () => {
+  const typeColors = ref({
+    normal: '#A9AA79',
+    fire: '#F0813A',
+    water: '#6992F1',
+    grass: '#79C94F',
+    electric: '#F8D249',
+    ice: '#9AD9D9',
+    fighting: '#C22C28',
+    poison: '#A13EA1',
+    ground: '#E1C268',
+    flying: '#A991F1',
+    psychic: '#ED5689',
+    bug: '#A9BA37',
+    rock: '#BAA135',
+    ghost: '#70579A',
+    dragon: '#734AF6',
+    dark: '#705746',
+    steel: '#BABAD1',
+    fairy: '#EE9AAD'
+  })
+
   const allPokemons = ref([])
   const displayedPokemons = ref([])
   const filteredPokemons = ref([])
@@ -105,11 +126,12 @@ export const usePokemonStore = defineStore('pokemon', () => {
     searchQuery,
     speciesDetails,
     selectedPokemon,
+    typeColors,
     fetchSpeciesDetails,
     fetchAllPokemons,
     fetchSinglePokemon,
     filterPokemons,
     nextPage,
-    prevPage,
+    prevPage
   }
 })

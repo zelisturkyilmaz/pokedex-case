@@ -1,4 +1,8 @@
 <script setup>
+import { usePokemonStore } from '@/stores/pokemon';
+
+const pokemonStore = usePokemonStore();
+
 const props = defineProps({
     pokemon: {
         type: Object,
@@ -22,7 +26,8 @@ const handleViewPokemon = () => {
         <p class="text-sm font-bold mt-4 capitalize">{{ pokemon.name }}</p>
         <div class="flex justify-center mb-2 gap-1">
             <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
-                <div class="border px-2 py-1 rounded-lg">{{ type.type.name }}</div>
+                <div class="border px-2 py-1 rounded-lg" :class="`bg-[${pokemonStore.typeColors[type.type.name]}]`">{{
+                    type.type.name }}</div>
             </div>
         </div>
     </div>
