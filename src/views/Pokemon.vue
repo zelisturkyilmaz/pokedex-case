@@ -95,17 +95,6 @@ onMounted(async () => {
                     </div>
                 </div>
             </div>
-            <p class="mt-4 text-lg font-semibold text-center">Stats</p>
-            <div class="border-t border-gray-800 pt-3">
-                <div class="grid grid-cols-6 mt-2 items-center" v-for="stat in pokemon.pokemon_details.stats"
-                    :key="stat.stat.name">
-                    <span class="col-span-2 uppercase font-medium">{{ stat.stat.name }}:</span>
-                    <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
-                        {{ stat.base_stat }}
-                    </div>
-                </div>
-            </div>
-
         </div>
     </main>
     <Loading v-else />
