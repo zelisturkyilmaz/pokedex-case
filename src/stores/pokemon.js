@@ -5,6 +5,7 @@ import axios from 'axios'
 export const usePokemonStore = defineStore('pokemon', () => {
   const allPokemons = ref([])
   const displayedPokemons = ref([])
+  const filteredPokemons = ref([])
   const currentPage = ref(1)
   const pageSize = ref(40)
   const searchQuery = ref('')
@@ -15,6 +16,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
     try {
       const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
       allPokemons.value = response.data.results
+      filteredPokemons.value = response.data.results
       await fetchPokemonDetails()
     } catch (error) {
       console.error('Error fetching all Pokemons:', error)
@@ -22,9 +24,10 @@ export const usePokemonStore = defineStore('pokemon', () => {
   }
 
   const fetchPokemonDetails = async () => {
+    const sourceList = searchQuery.value ? filteredPokemons.value : allPokemons.value
     const start = (currentPage.value - 1) * pageSize.value
     const end = start + pageSize.value
-    const pokemonsToDisplay = allPokemons.value.slice(start, end)
+    const pokemonsToDisplay = sourceList.slice(start, end)
 
     displayedPokemons.value = await Promise.all(
       pokemonsToDisplay.map(async (pokemon) => {
@@ -65,41 +68,23 @@ export const usePokemonStore = defineStore('pokemon', () => {
 
   const filterPokemons = async () => {
     if (searchQuery.value) {
-      const filteredPokemons = allPokemons.value.filter((pokemon) => {
-        return pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-      })
-      displayedPokemons.value = await Promise.all(
-        filteredPokemons.slice(0, pageSize.value).map(async (pokemon) => {
-          const details = await axios.get(pokemon.url)
-          const cachedPokemon = displayedPokemons.value.find((p) => p.url === pokemon.url)
-
-          return (
-            cachedPokemon || {
-              name: details.data.name,
-              url: pokemon.url,
-              image: details.data.sprites.front_default,
-              pokemon_details: details.data
-            }
-          )
-        })
+      filteredPokemons.value = allPokemons.value.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase())
       )
     } else {
-      await fetchPokemonDetails()
+      filteredPokemons.value = allPokemons.value
     }
+    currentPage.value = 1
+    await fetchPokemonDetails()
   }
 
   const nextPage = async () => {
-    if (currentPage.value * pageSize.value < allPokemons.value.length) {
+    const sourceList = searchQuery.value ? filteredPokemons.value : allPokemons.value
+    if (currentPage.value * pageSize.value < sourceList.length) {
       currentPage.value += 1
       displayedPokemons.value = []
       await fetchPokemonDetails()
     }
-  }
-
-  const goToFirstPage = async () => {
-    currentPage.value = 1
-    displayedPokemons.value = []
-    await fetchPokemonDetails()
   }
 
   const prevPage = async () => {
@@ -114,6 +99,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
   return {
     allPokemons,
     displayedPokemons,
+    filteredPokemons,
     currentPage,
     pageSize,
     searchQuery,
@@ -125,6 +111,5 @@ export const usePokemonStore = defineStore('pokemon', () => {
     filterPokemons,
     nextPage,
     prevPage,
-    goToFirstPage
   }
 })

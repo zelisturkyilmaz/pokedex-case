@@ -22,7 +22,6 @@ const isLoading = computed(() => {
 });
 
 onMounted(async () => {
-  await pokemonStore.goToFirstPage()
   if (!pokemonStore.allPokemons.length) {
     await pokemonStore.fetchAllPokemons();
   }
