@@ -23,6 +23,10 @@ const pokemon = computed(() => {
     return pokemonStore.selectedPokemon;
 });
 
+const description = computed(() => {
+    return pokemon.value.species_details.flavor_text_entries.filter(text => text.language.name === 'en')[1].flavor_text
+});
+
 
 onMounted(async () => {
     if (!pokemon.value) {
@@ -35,20 +39,22 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="p-5 mx-auto grid grid-cols-1 md:grid-cols-2 bg-gray-200 "
-        v-if="pokemon && pokemon.species_details">
-        <div class="p-5 flex-1 flex items-center">
-            <img :src="pokemon.image" :alt="pokemon.name" loading="eager" class="w-full h-auto object-cover ">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 bg-gray-200 " v-if="pokemon && pokemon.species_details">
+        <div class="p-5 flex-1 flex items-center justify-center">
+            <img :src="pokemon.image" :alt="pokemon.name" loading="eager" class="md:w-2/3 w-full h-auto ">
         </div>
-        <div class="px-3 ">
-            <div class="flex items-center gap-3">
+        <div class="px-3">
+            <div class="flex items-center flex-wrap gap-3">
                 <h2 class="text-4xl font-semibold capitalize">{{ pokemon.name }}</h2>
-                <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
-                    <div class="border border-black px-2 py-1 rounded-lg">{{ type.type.name }}</div>
+                <div class="flex gap-3">
+                    <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
+                        <div class="border border-black px-2 py-1 rounded-lg">{{ type.type.name }}</div>
+                    </div>
                 </div>
             </div>
-            <p class="text-md mt-2">{{ pokemon.species_details.flavor_text_entries[1].flavor_text }}</p>
-            <div class="mt-3 text-center">
+            <span class="text-md mt-2 text-gray-600">ID#{{ pokemonId }}</span>
+            <p class="text-md mt-2">{{ description }}</p>
+            <div class="mt-4 text-center">
                 <p class="text-lg font-semibold">Abilities</p>
                 <div class="flex flex-wrap justify-center">
                     <div v-for="ability in pokemon.pokemon_details.abilities" :key="ability.ability.name"
@@ -57,31 +63,35 @@ onMounted(async () => {
                     </div>
                 </div>
             </div>
-            <p class="my-3 text-lg font-semibold text-center">Details</p>
-            <div class="grid grid-cols-6 mt-2 items-center">
-                <span class="col-span-2 uppercase font-medium">Height:</span>
-                <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
-                    {{ pokemon.pokemon_details.height / 10 }}m
+            <p class="mt-4 text-lg font-semibold text-center">Details</p>
+            <div class="border-t border-gray-800 pt-3">
+                <div class="grid grid-cols-6 mt-2 items-center">
+                    <span class="col-span-2 uppercase font-medium">Height:</span>
+                    <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
+                        {{ pokemon.pokemon_details.height / 10 }}m
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 mt-2 items-center">
+                    <span class="col-span-2 uppercase font-medium">Weigth:</span>
+                    <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
+                        {{ pokemon.pokemon_details.weight / 10 }}Kg
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 mt-2 items-center">
+                    <span class="col-span-2 uppercase font-medium">Base EXP:</span>
+                    <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
+                        {{ pokemon.pokemon_details.base_experience }}
+                    </div>
                 </div>
             </div>
-            <div class="grid grid-cols-6 mt-2 items-center">
-                <span class="col-span-2 uppercase font-medium">Weigth:</span>
-                <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
-                    {{ pokemon.pokemon_details.weight / 10 }}Kg
-                </div>
-            </div>
-            <div class="grid grid-cols-6 mt-2 items-center">
-                <span class="col-span-2 uppercase font-medium">Base EXP:</span>
-                <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
-                    {{ pokemon.pokemon_details.base_experience }}
-                </div>
-            </div>
-            <p class="my-3 text-lg font-semibold text-center">Stats</p>
-            <div class="grid grid-cols-6 mt-2 items-center" v-for="stat in pokemon.pokemon_details.stats"
-                :key="stat.stat.name">
-                <span class="col-span-2 uppercase font-medium">{{ stat.stat.name }}:</span>
-                <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
-                    {{ stat.base_stat }}
+            <p class="mt-4 text-lg font-semibold text-center">Stats</p>
+            <div class="border-t border-gray-800 pt-3">
+                <div class="grid grid-cols-6 mt-2 items-center" v-for="stat in pokemon.pokemon_details.stats"
+                    :key="stat.stat.name">
+                    <span class="col-span-2 uppercase font-medium">{{ stat.stat.name }}:</span>
+                    <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
+                        {{ stat.base_stat }}
+                    </div>
                 </div>
             </div>
 

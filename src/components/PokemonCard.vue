@@ -15,10 +15,10 @@ const handleViewPokemon = () => {
 </script>
 
 <template>
-    <div class="rounded-2xl shadow-md bg-white flex flex-col justify-end items-center cursor-pointer transition ease-in-out delay-150 hover:scale-105 relative h-36"
+    <div class="rounded-2xl shadow-md bg-white flex flex-col justify-end items-center cursor-pointer transition ease-in-out delay-150 hover:scale-105 relative h-44"
         @click="handleViewPokemon">
         <img :src="pokemon.image || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'"
-            :alt="pokemon.name" class="object-cover absolute h-28 w-28 -top-6" />
+            :alt="pokemon.name" class="absolute h-36 w-36 -top-6" />
         <p class="text-sm font-bold mt-4 capitalize">{{ pokemon.name }}</p>
         <div class="flex justify-center mb-2 gap-1">
             <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
