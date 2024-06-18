@@ -47,12 +47,12 @@ onMounted(async () => {
         <div class="px-3 overflow-y-auto flex-1">
             <div class="flex items-center flex-wrap sticky top-0 bg-gray-200">
                 <h2 class="text-4xl font-semibold capitalize">{{ pokemon.name }}</h2>
-                <div class="flex gap-3 ml-2">
+                <div class="flex gap-3 md:ml-2 mt-1">
                     <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
-                        <div class="border border-black px-2 py-1 rounded-lg">{{ type.type.name }}</div>
+                        <div class="border px-2 py-1 rounded-lg" :style="{ backgroundColor: pokemonStore.typeColors[type.type.name] }">{{ type.type.name }}</div>
                     </div>
                 </div>
-                <span class="text-md text-gray-600 w-full ">ID#{{ pokemonId }}</span>
+                <span class="text-md text-gray-600 w-full ">Pokédex#{{ pokemonId }}</span>
             </div>
             <p class="text-md mt-2">{{ description }}</p>
             <div class="mt-4 text-center">

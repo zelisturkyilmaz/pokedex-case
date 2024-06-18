@@ -24,9 +24,12 @@ const handleViewPokemon = () => {
         <img :src="pokemon.image || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'"
             :alt="pokemon.name" class="absolute h-36 w-36 -top-6" />
         <p class="text-sm font-bold mt-4 capitalize">{{ pokemon.name }}</p>
+        <span class="text-xs text-gray-600">ID#{{ pokemon.pokemon_details.id }}</span>
+
         <div class="flex justify-center mb-2 gap-1">
             <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
-                <div class="border px-2 py-1 rounded-lg" :class="`bg-[${pokemonStore.typeColors[type.type.name]}]`">{{
+                <div class="border px-2 py-1 rounded-lg"
+                    :style="{ backgroundColor: pokemonStore.typeColors[type.type.name] }">{{
                     type.type.name }}</div>
             </div>
         </div>
