@@ -10,7 +10,8 @@ const router = createRouter({
       name: 'home',
       component: Home
     },
-    { path: '/pokemon/:id', component: Pokemon }
+    { path: '/pokemon/:id', component: Pokemon },
+    { path: '/:pathMatch(.*)*', redirect: '/' }
   ]
 })
 
