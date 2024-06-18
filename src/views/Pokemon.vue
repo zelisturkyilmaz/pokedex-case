@@ -39,20 +39,21 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 bg-gray-200 " v-if="pokemon && pokemon.species_details">
-        <div class="p-5 flex-1 flex items-center justify-center">
-            <img :src="pokemon.image" :alt="pokemon.name" loading="eager" class="md:w-2/3 w-full h-auto ">
+    <main class="container py-10 px-5 mx-auto flex-1 flex flex-col md:flex-row bg-gray-200 md:overflow-hidden"
+        v-if="pokemon && pokemon.species_details">
+        <div class="p-5 md:flex-1 flex items-center justify-center">
+            <img :src="pokemon.image" :alt="pokemon.name" loading="eager" class="md:w-2/3 w-3/5 h-auto ">
         </div>
-        <div class="px-3">
-            <div class="flex items-center flex-wrap gap-3">
+        <div class="px-3 overflow-y-auto flex-1">
+            <div class="flex items-center flex-wrap sticky top-0 bg-gray-200">
                 <h2 class="text-4xl font-semibold capitalize">{{ pokemon.name }}</h2>
-                <div class="flex gap-3">
+                <div class="flex gap-3 ml-2">
                     <div v-for="type in pokemon.pokemon_details.types" :key="type.type.name">
                         <div class="border border-black px-2 py-1 rounded-lg">{{ type.type.name }}</div>
                     </div>
                 </div>
+                <span class="text-md text-gray-600 w-full ">ID#{{ pokemonId }}</span>
             </div>
-            <span class="text-md mt-2 text-gray-600">ID#{{ pokemonId }}</span>
             <p class="text-md mt-2">{{ description }}</p>
             <div class="mt-4 text-center">
                 <p class="text-lg font-semibold">Abilities</p>
@@ -94,9 +95,19 @@ onMounted(async () => {
                     </div>
                 </div>
             </div>
+            <p class="mt-4 text-lg font-semibold text-center">Stats</p>
+            <div class="border-t border-gray-800 pt-3">
+                <div class="grid grid-cols-6 mt-2 items-center" v-for="stat in pokemon.pokemon_details.stats"
+                    :key="stat.stat.name">
+                    <span class="col-span-2 uppercase font-medium">{{ stat.stat.name }}:</span>
+                    <div class="col-span-4 text-center px-3 py-1 rounded-xl bg-gray-300">
+                        {{ stat.base_stat }}
+                    </div>
+                </div>
+            </div>
 
         </div>
-    </div>
+    </main>
     <Loading v-else />
 
 </template>
